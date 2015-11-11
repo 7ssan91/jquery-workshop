@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="jQuery,JavaScript">
+    <meta name="description" content="jQueryの小技などのサンプルをコード例として紹介するブログです。ネイティブJavaScriptから移行したいjQuery初心者向け、jQueryの魅力を知ってもらえたら。">
+    <meta name="author" content="ryoichi-obara">
+    <title>jQuery Selectors | jQuery workshop</title>
+  </head>
+  <body>
+  <main>
+    <div id="main" class="container">
+      <form>
+
+        <!-- <h1>jQueryセレクタの指定と各入力要素の値取得方法.</h1> -->
+
+        <div>
+          <input type="hidden" id="hid1" name="hid">
+          <input type="hidden" id="hid2" name="hid">
+        </div>
+
+        <div>
+          <label for="textbox_a">テキストボックスA</label>
+          <input type="text" id="textbox_a" class="input-text" value="AAA" readonly="true">
+        </div>
+        <div>
+          <label for="textbox_b">テキストボックスB</label>
+          <input type="text" id="textbox_b" class="input-text" value="BBB">
+
+          <button type="button" id="btn_text_value">テキストボックスの値を取得</button>
+          <button type="button" id="btn_text_clear">テキストボックスの値をクリア</button>
+        </div>
+
+
+        <div>
+          <label for="text_area">テキストエリア</label>
+          <textarea id="text_area" cols="50" rows="4">
+あいうえお
+かきくけこ</textarea>
+        </div>
+
+
+        <div>
+          <label for="new_password">パスワード</label>
+          <input type="password" id="new_password" value="">
+
+          <button type="button" id="btn_password_value">パスワードの値を取得</button>
+          <button type="button" id="btn_password_clear">パスワードの値をクリア</button>
+        </div>
+
+
+        <div>
+          <label>
+            <input type="checkbox" id="checkbox_a" name="checkbox" value="c1">
+            チェックボックス
+          </label>
+        </div>
+        <div>
+          <label>
+            <input type="checkbox" id="checkbox_b" name="checkbox" value="c2">
+            チェックボックスB
+          </label>
+        </div>
+
+
+        <div>
+          <label><input type="radio" id="radiobutton_1_1" name="radiobutton1" value="1">選択肢1</label>
+          <label><input type="radio" id="radiobutton_1_2" name="radiobutton1" value="2">選択肢2</label>
+          <label><input type="radio" id="radiobutton_1_3" name="radiobutton1" value="3">選択肢3</label>
+        </div>
+        <div>
+          <label><input type="radio" id="radiobutton_2_a" name="radiobutton2" value="A">選択肢A</label>
+          <label><input type="radio" id="radiobutton_2_b" name="radiobutton2" value="B">選択肢B</label>
+          <label><input type="radio" id="radiobutton_2_c" name="radiobutton2" value="C">選択肢C</label>
+
+          <button type="button" id="btn_radio_value">ラジオボタンの値を取得</button>
+          <button type="button" id="btn_radio_clear">ラジオボタンの値をクリア</button>
+        </div>
+
+
+        <div>
+          <label for="my_blood_type">自分の血液型</label>
+          <select id="my_blood_type" name="bloodType">
+            <option value=""></option>
+            <option value="A">A型</option>
+            <option value="B">B型</option>
+            <option value="O">O型</option>
+            <option value="AB">AB型</option>
+          </select>
+
+          <label for="partner_blood_type">相手の血液型</label>
+          <select id="partner_blood_type" name="bloodType">
+            <option value=""></option>
+            <option value="A">A型</option>
+            <option value="B">B型</option>
+            <option value="O">O型</option>
+            <option value="AB">AB型</option>
+          </select>
+
+          <button type="button" id="btn_blood_diagnonosis">診断する</button>
+          <button type="button" id="btn_blood_clear">クリア</button>
+        </div>
+
+
+        <div>
+          <label for="file_select">ファイル選択</label>
+          <input type="file" id="file_select">
+
+          <button type="button" id="btn_file_value">ファイル選択の値を取得</button>
+          <button type="button" id="btn_file_clear">ファイル選択の値をクリア</button>
+        </div>
+
+        <div>
+          <input type="text">
+        </div>
+
+      </form>
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+    <!--
+
+      $(document).ready(function($) {
+
+        $('input:enabled:visible:not([readonly]), textarea:enabled:visible:not([readonly]), select:enabled:visible').eq(0).focus();
+        // $('input, textarea, select').filter(':enabled:visible:not([readonly])').eq(0).focus();
+      });
+
+    // -->
+    </script>
+  </body>
+</html>
