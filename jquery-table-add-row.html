@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="jQuery,JavaScript">
+    <meta name="description" content="jQueryの小技/ちょっとした便利コードをどしどし紹介するブログです。ネイティブJavaScriptしか知らない人向けにjQueryの魅力を知ってもらえたら。">
+    <meta name="author" content="ryoichi-obara">
+    <!-- <link rel="icon" href="./favicon.ico"> -->
+    <title>テーブルへの行追加 | jQuery workshop</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="./css/jq-workshop.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">jQuery workshop</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">jQuery workshop</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="http://jquery-workshop.hatenablog.com/">Blog</a></li>
+            <li><a href="http://profile.hatena.ne.jp/ryoichi0102/">Profile</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acitons <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://profile.hatena.ne.jp/ryoichi0102/follow.add">Add favorite on hatena</a></li>
+                <li><a href="https://www.hatena.ne.jp/shop/point/sendpoint?to_hatena_id=ryoichi0102">Send hatena point</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Check other blogs.</li>
+                <li><a href="http://ryoichi0102.hatenablog.com/">Main blog</a></li>
+                <li><a href="http://try-java.hatenablog.com/">For Java engineers</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <main>
+    <div id="main" class="container">
+      <form>
+
+        <table id="list_table" class="table table-striped table-bordered table-hover table-condensed">
+          <colgroup>
+            <col style="width:30px;">
+            <col style="width:200px;">
+            <col>
+            <col style="width:300px;">
+            <col style="width:200px;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th><input type="checkbox" class="check-all" /></th>
+              <th>No</th>
+              <th>Name</th>
+              <th>Birth</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" class="list-check" /></td>
+              <td>00001</td>
+              <td>A</td>
+              <td>1982/01/02</td>
+              <td><a href="#" class="delete-link">削除</a></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="list-check" /></td>
+              <td>00002</td>
+              <td>B</td>
+              <td>1981/09/25</td>
+              <td><a href="#" class="delete-link">削除</a></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="list-check" /></td>
+              <td>00003</td>
+              <td>C</td>
+              <td></td>
+              <td><a href="#" class="delete-link">削除</a></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th><input type="checkbox" class="check-all" /></th>
+              <th>No</th>
+              <th>Name</th>
+              <th>Birth</th>
+              <th>Action</th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <h3>行追加</h3>
+
+        <table id="append_table" class="table table-bordered table-condensed">
+          <colgroup>
+            <col style="width:30px;">
+            <col style="width:200px;">
+            <col>
+            <col style="width:300px;">
+            <col style="width:200px;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th><label for="add_no">No</label></th>
+              <th>Name</th>
+              <th>Birth</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td><input type="text" id="add_no" class="form-control"></td>
+              <td><input type="text" id="add_name" class="form-control"></td>
+              <td><input type="text" id="add_birth" class="form-control"></td>
+              <td><button type="button" id="append_row" class="btn btn-default btn-md">行追加</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </form>
+    </div>
+    </main>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery-1.11.3.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    <!--
+
+      $(document).ready(function($) {
+
+        var refleshCheckAll = (function() {
+          var allChecked = true;
+          $('.list-check').each(function() {
+            allChecked &= $(this).prop('checked');
+          });
+          $('.check-all').prop('checked', allChecked);
+        });
+
+        $('#list_table').on('click', '.check-all', function() {
+          var checkboxValue = $(this).prop('checked');
+          $('.check-all').prop('checked', checkboxValue);
+          $('.list-check').prop('checked', checkboxValue);
+        });
+
+        $('#list_table').on('click', '.list-check', function() {
+          refleshCheckAll();
+        });
+
+        $('#append_row').on('click', function() {
+          $('#list_table').append(
+            $('<tr>').append(
+              $('<td>').append($('<input type="checkbox">').addClass('list-check').prop('checked', $('.check-all').prop('checked'))),
+              $('<td>').append($('#add_no').val()),
+              $('<td>').append($('#add_name').val()),
+              $('<td>').append($('#add_birth').val()),
+              $('<td>').append(
+                $('<a>').prop('href', '#').addClass('delete-link').append('削除')
+              )
+            )
+          );
+          $('#add_no').val('');
+          $('#add_name').val('');
+          $('#add_birth').val('');
+        });
+
+        $('#list_table').on('click', '.delete-link', function(){
+          $(this).closest('tr').remove();
+          refleshCheckAll();
+        });
+      });
+
+    // -->
+    </script>
+  </body>
+</html>
