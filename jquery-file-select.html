@@ -111,7 +111,7 @@
     });
 
     // ファイル選択時に表示用テキストボックスへ値を連動させる.
-    // ファイル選択値のクリア機能の実装により、#file_select がDOMから消されることがあるので親要素にフィルタ指定でイベントを割り当てる.
+    // ファイル選択値のクリア機能の実装により、#file_select がDOMから消されることがあるので親要素からセレクタ指定でイベントを割り当てる.
     $('#file_select').parent().on('change', '#file_select', function() {
       // $('#file_name').val($(this).val());
       $('#file_name').val($('#file_select').prop('files')[0].name);
