@@ -86,57 +86,6 @@
 
     </div>
 
-<!--     <table id="list_table" class="table table-striped table-bordered table-hover table-condensed">
-      <colgroup>
-        <col style="width:30px;">
-        <col>
-        <col>
-        <col>
-        <col>
-      </colgroup>
-      <thead>
-        <tr>
-          <th><input type="checkbox" class="check-all" /></th>
-          <th>No</th>
-          <th>Name</th>
-          <th>Birth</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="checkbox" class="list-check" /></td>
-          <td>00001</td>
-          <td>A</td>
-          <td>1982/01/02</td>
-          <td><a href="#">詳細へ</a></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="list-check" /></td>
-          <td>00002</td>
-          <td>B</td>
-          <td>1981/09/25</td>
-          <td><a href="#">詳細へ</a></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" class="list-check" /></td>
-          <td>00003</td>
-          <td>C</td>
-          <td></td>
-          <td><a href="#">詳細へ</a></td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <th><input type="checkbox" class="check-all" /></th>
-          <th>No</th>
-          <th>Name</th>
-          <th>Birth</th>
-          <th>Action</th>
-        </tr>
-      </tfoot>
-    </table>
- -->
   </form>
 
 </div>
@@ -147,108 +96,56 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="./js/jquery-1.11.3.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
-<!-- <script src="./js/jquery.fn/jquery.xdomainajax.js"></script> -->
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script> -->
-<script>
-
-  var googleSearch = (function() {
-    var cx = '011172002625708069492:lqsyhsrp7z0'; // Insert your own Custom Search engine ID here
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  });
-
-  googleSearch();
-</script>
-<gcse:search></gcse:search>
 <script type="text/javascript">
 <!--
 
   $(document).ready(function($) {
 
-    var ajaxSuccessFunction = (function(res) {
-      console.debug(res);
-
-      var jsonString = res.responseText.replace('<html><head/><body>','').replace('</body></html>','');
-      var jsonObject = $.parseJSON(jsonString);
-
-      console.debug(jsonObject.responseData.results);
-
-      if (jsonObject.responseData.results.length == 0) {
-        $('#results').text('No result');
-        return;
-      }
-
-      var mono = null; // != null means Response has mono.
-      $.each(jsonObject.responseData.results, function () {
-        if (isMono(this.unescapedUrl) && isPl(this.unescapedUrl)) { // 同じmonoページでも複数枚ヒットするためisPl
-          mono = this;
-        }
-      });
-
-      console.info(mono == null ? 'mono is null' : mono);
-
-      // TODO multi mono?
-      if (mono == null) {
-
-        $.each(jsonObject.responseData.results, function (index, val) {
-          var imgPreloader = new Image();
-          imgPreloader.onload = function() {
-            $('#results').append(getImageResultRow(val));
-          };
-          imgPreloader.src = val.tbUrl;
-        });
-
-      } else {
-
-          // loadImage(mono.tbUrl, function (url){
-          //   // $('#results').append(getImageResultRow(mono));
-          //   $('#results').append(
-          //     getRow(attachData({
-          //       catalogNo: convertCatNo($('#query').val()), // TODO
-          //       tbUrl: mono.tbUrl,
-          //       linkUrl: mono.originalContextUrl
-          //     }))
-          //   );
-          // });
-
-          var imgPreloader = new Image();
-          imgPreloader.onload = function() {
-            // $('#results').append(getImageResultRow(mono));
-            $('#results').append(
-              getRow(attachData({
-                catalogNo: convertCatNo($('#query').val()), // TODO
-                tbUrl: mono.tbUrl,
-                linkUrl: mono.originalContextUrl
-              }))
-            );
-          };
-          imgPreloader.src = mono.tbUrl;
-      }
+    var getImage = (function(url) {
+      var imgPreloader = new Image();
+      imgPreloader.onload = function() {
+        // event handler
+      };
+      imgPreloader.src = url;
+      return imgPreloader;
     });
 
     $('#main_form').on('submit', function() {
-      $('#result_container').show();
       $('#results').empty();
 
-      $('#condition').val();
-
+      console.log('try');
       // Google image search.
       $.ajax({
         type: 'GET',
+        url: 'https://www.googleapis.com/customsearch/v1?key=AIzaSyDb6DlL5TfcyOO-niPcj7Pr9tnFTEpB8ms&cx=011172002625708069492:lqsyhsrp7z0&searchType=image&q=' + $('#condition').val(),
+        // url: 'http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' + $('#condition').val(),
+        dataType: 'html',
+      }).done(function(data) { // ajaxSuccessFunction
+        console.log('done');
 
+        $('#result_container').show();
+        var items = $.parseJSON(data).items;
 
-        url: 'http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' + $('#condition').val(),
-        dataType: 'ajax',
-        success: ajaxSuccessFunction
+        $.each(items, function(index, val) {
+          $('#results').append(
+            $('<a>').attr({
+              'href': val.link,
+              'target': '_blank'
+            }).append(
+              getImage(val.image.thumbnailLink)
+            )
+          )
+        });
+
+      }).fail(function(data) {
+        console.error(data);
       });
+
+      console.log('exit');
 
       return false;
     });
+
 
     $('input').eq(0).focus();
   });
