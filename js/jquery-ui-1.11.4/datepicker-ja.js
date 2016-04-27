@@ -24,10 +24,26 @@ datepicker.regional.ja = {
 	dayNamesMin: [ "日","月","火","水","木","金","土" ],
 	weekHeader: "週",
 	dateFormat: "yy/mm/dd",
-	firstDay: 0,
+	// firstDay: 0, // 週の初めは日曜
 	isRTL: false,
 	showMonthAfterYear: true,
-	yearSuffix: "年" };
+	yearSuffix: "年",
+
+	// jquery-workshop customized.
+	firstDay: 1, // 週の初めは月曜
+	showButtonPanel: true, // "今日"ボタン, "閉じる"ボタンを表示する
+	showAnim: 'slideDown', // カレンダーを表示する際のアニメーション指定
+	beforeShow: function(input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
+		var top  = $(this).offset().top + $(this).outerHeight();
+		var left = $(this).offset().left;
+		setTimeout(function() {
+			inst.dpDiv.css({
+				'top' : top,
+				'left': left
+			});
+		}, 10) // 10msec
+	}	
+};
 datepicker.setDefaults( datepicker.regional.ja );
 
 return datepicker.regional.ja;

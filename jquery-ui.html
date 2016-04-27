@@ -72,9 +72,39 @@
   <form>
 
     <div class="row">
+      <label for="target_date" class="col-xs-2">Label1</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date1" name="targetDate" class="form-control this-is-datepicker" placeholder="text1" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label2</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date2" name="targetDate" class="form-control this-is-datepicker" placeholder="text2" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label3</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date3" name="targetDate" class="form-control this-is-datepicker" placeholder="text3" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label4</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date4" name="targetDate" class="form-control this-is-datepicker" placeholder="text4" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label5</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date5" name="targetDate" class="form-control this-is-datepicker" placeholder="text5" />
+      </div>
+    </div>
+    <div class="row">
       <label for="target_date" class="col-xs-2">Target date</label>
       <div class="col-xs-3">
-        <input type="text" id="target_date" name="targetDate" class="form-control" placeholder="Target date" />
+        <input type="text" id="target_date6" name="targetDate" class="form-control this-is-datepicker" placeholder="Target date" />
       </div>
     </div>
 
@@ -97,7 +127,7 @@
 
   $(document).ready(function($) {
     
-    $('#target_date').datepicker();
+    $('.this-is-datepicker').datepicker();
 
   });
 
