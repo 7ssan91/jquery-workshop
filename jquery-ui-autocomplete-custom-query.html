@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="jQuery,JavaScript">
+  <meta name="description" content="jQueryの小技/ちょっとした便利コードをどしどし紹介するブログです。ネイティブJavaScriptしか知らない人向けにjQueryの魅力を知ってもらえたら。">
+  <meta name="author" content="ryoichi-obara">
+  <title>jQuery UI autocomplete custom query | jQuery workshop</title>
+
+  <!-- <link rel="icon" href="./favicon.ico"> -->
+  <!-- Bootstrap core CSS -->
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap theme -->
+  <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+  <!-- jQuery UI -->
+  <link href="./css/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
+  <link href="./css/jquery-ui-1.11.4/jquery-ui.structure.min.css" rel="stylesheet">
+  <link href="./css/jquery-ui-1.11.4/jquery-ui.theme.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./css/jq-workshop.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <![endif]-->
+ 
+  <style type="text/css">
+
+  </style>
+</head>
+<body>
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">jQuery workshop</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">jQuery workshop</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="http://jquery-workshop.hatenablog.com/">Blog</a></li>
+          <li><a href="http://profile.hatena.ne.jp/ryoichi0102/">Profile</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acitons <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="http://profile.hatena.ne.jp/ryoichi0102/follow.add">Add favorite on hatena</a></li>
+              <li><a href="https://www.hatena.ne.jp/shop/point/sendpoint?to_hatena_id=ryoichi0102">Send hatena point</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">Check other blogs.</li>
+              <li><a href="http://ryoichi0102.hatenablog.com/">Main blog</a></li>
+              <li><a href="http://try-java.hatenablog.com/">For Java engineers</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+<div id="main" class="container">
+
+  <form>
+
+    <div class="row">
+      <label for="query" class="col-xs-2">query</label>
+      <div class="col-xs-3">
+        <input type="text" id="query" name="query" class="form-control" placeholder="query" />
+      </div>
+    </div>
+
+  </form>
+
+</div>
+</main>
+<footer>
+
+</footer>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.11.3.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="./js/jquery-ui-1.11.4/datepicker-ja.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script> -->
+<script type="text/javascript">
+<!--
+
+  $(document).ready(function($) {
+
+    $('input').eq(0).focus();
+
+    var autocompleteData = [
+      {"full_name":"秋元 真夏","kana_name":"あきもと まなつ","name_spelling":"Manatsu Akimoto","nick_name":"まなったん まなつ 真夏さん","bemars_name":"ハーバード","birth_date":"1993/08/20","blood_type":"B","horoscope":"しし座","stature_cm":"156","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/akimotomanatsu_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/akimotomanatsu.php","blog_url":"http://blog.nogizaka46.com/manatsu.akimoto/","nanagogo":"http://7gogo.jp/akimoto-manatsu"},
+      {"full_name":"生田 絵梨花","kana_name":"いくた えりか","name_spelling":"Erika Ikuta","nick_name":"いくちゃん いくたどん","bemars_name":"ショパン","birth_date":"1997/01/22","blood_type":"A","horoscope":"みずがめ座","stature_cm":"160","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/ikutaerika_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/ikutaerika.php","blog_url":"http://blog.nogizaka46.com/erika.ikuta/","nanagogo":"http://7gogo.jp/ikuta-erika"},
+      {"full_name":"生駒 里奈","kana_name":"いこま りな","name_spelling":"Rina Ikoma","nick_name":"いこたん いこまちゃん","bemars_name":"アカデミー","birth_date":"1995/12/29","blood_type":"AB","horoscope":"やぎ座","stature_cm":"153","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/ikomarina_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/ikomarina.php","blog_url":"http://blog.nogizaka46.com/rina.ikoma/","nanagogo":"http://7gogo.jp/ikoma-rina"},
+      {"full_name":"伊藤 かりん","kana_name":"いとう かりん","name_spelling":"Karin Ito","nick_name":"かりん","bemars_name":"林田カリン","birth_date":"1993/05/26","blood_type":"O","horoscope":"ふたご座","stature_cm":"154","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/itoukarin_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/itoukarin.php","blog_url":"http://blog.nogizaka46.com/karin.itou/","nanagogo":"http://7gogo.jp/ito-karin"},
+      {"full_name":"伊藤 純奈","kana_name":"いとう じゅんな","name_spelling":"Junna Ito","nick_name":"じゅんな","bemars_name":"傷だらけのローラ(日京女子学院)","birth_date":"1998/11/30","blood_type":"A","horoscope":"いて座","stature_cm":"165","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/itoujunna_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/itoujunna.php","blog_url":"http://blog.nogizaka46.com/junna.itou/","nanagogo":"http://7gogo.jp/ito-jyunna"},
+      {"full_name":"伊藤 万理華","kana_name":"いとう まりか","name_spelling":"Marika Ito","nick_name":"まりっか まりちゃ ○","bemars_name":"テヅカ(初森第二女子商業高等学校生徒漫画研究部)","birth_date":"1996/02/20","blood_type":"O","horoscope":"うお座","stature_cm":"155","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/itoumarika_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/itoumarika.php","blog_url":"http://blog.nogizaka46.com/marika.ito/","nanagogo":"http://7gogo.jp/talks/qmDZGsfkyq5n"},
+      {"full_name":"井上 小百合","kana_name":"いのうえ さゆり","name_spelling":"Sayuri Inoue","nick_name":"さゆにゃん さゆ さゆちゃん","bemars_name":"滝谷サユリ","birth_date":"1994/12/14","blood_type":"B","horoscope":"いて座","stature_cm":"154","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/inouesayuri_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/inouesayuri.php","blog_url":"http://blog.nogizaka46.com/sayuri.inoue/","nanagogo":"http://7gogo.jp/inoue-sayuri"},
+      {"full_name":"衛藤 美彩","kana_name":"えとう みさ","name_spelling":"Misa Eto","nick_name":"みさみさ みさ先輩 みさぽん","bemars_name":"シェリー","birth_date":"1993/01/04","blood_type":"AB","horoscope":"やぎ座","stature_cm":"162","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/etoumisa_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/etoumisa.php","blog_url":"http://blog.nogizaka46.com/misa.eto/","nanagogo":"http://7gogo.jp/eto-misa"},
+      {"full_name":"川後 陽菜","kana_name":"かわご ひな","name_spelling":"Hina Kawago","nick_name":"ひな ひなぴょん ひなたん 川後P","bemars_name":"剣道部員のヒナ","birth_date":"1998/03/22","blood_type":"O","horoscope":"おひつじ座","stature_cm":"158","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/kawagohina_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/kawagohina.php","blog_url":"http://blog.nogizaka46.com/hina.kawago/","nanagogo":"http://7gogo.jp/kawago-hina"},
+      {"full_name":"川村 真洋","kana_name":"かわむら まひろ","name_spelling":"Mahiro Kawamura","nick_name":"ろってぃー","bemars_name":"金髪のエリー(日京女子学院)","birth_date":"1995/07/23","blood_type":"A","horoscope":"しし座","stature_cm":"156","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/kawamuramahiro_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/kawamuramahiro.php","blog_url":"http://blog.nogizaka46.com/mahiro.kawamura/","nanagogo":"http://7gogo.jp/kawamura-mahiro"},
+      {"full_name":"北野 日奈子","kana_name":"きたの ひなこ","name_spelling":"Hinako Kitano","nick_name":"きぃちゃん きなこ","bemars_name":"ビントロ(磨黒水産女子高校)","birth_date":"1996/07/17","blood_type":"O","horoscope":"かに座","stature_cm":"157","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/kitanohinako_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/kitanohinako.php","blog_url":"http://blog.nogizaka46.com/hinako.kitano/","nanagogo":"http://7gogo.jp/kitano-hinako"},
+      {"full_name":"齋藤 飛鳥","kana_name":"さいとう あすか","name_spelling":"Asuka Saito","nick_name":"あしゅ あしゅりん すかにゃん","bemars_name":"イシノモリ(初森第二女子商業高等学校生徒漫画研究部)","birth_date":"1998/08/10","blood_type":"O","horoscope":"しし座","stature_cm":"154","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/saitouasuka_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/saitouasuka.php","blog_url":"http://blog.nogizaka46.com/asuka.saito/","nanagogo":"http://7gogo.jp/talks/Na5Tkpl12wmu"},
+      {"full_name":"斎藤 ちはる","kana_name":"さいとう ちはる","name_spelling":"Chiharu Saito","nick_name":"ちーちゃん ちはるん","bemars_name":"花吹雪舞(ベルサイユ音楽学校)","birth_date":"1997/02/17","blood_type":"A","horoscope":"みずがめ座","stature_cm":"166","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/saitouchiharu_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/saitouchiharu.php","blog_url":"http://blog.nogizaka46.com/chiharu.saito/","nanagogo":"http://7gogo.jp/saito-chiharu"},
+      {"full_name":"斉藤 優里","kana_name":"さいとう ゆうり","name_spelling":"Yuuri Saito","nick_name":"ゆったん","bemars_name":"カジキ(磨黒水産女子高校)","birth_date":"1993/07/20","blood_type":"O","horoscope":"かに座","stature_cm":"156","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/saitouyuuri_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/saitouyuuri.php","blog_url":"http://blog.nogizaka46.com/yuuri.saito/","nanagogo":"http://7gogo.jp/saito-yuuri"},
+      {"full_name":"相楽 伊織","kana_name":"さがら いおり","name_spelling":"Iori Sagara","nick_name":"いおり","bemars_name":"ひかり(県立凸Q高校)","birth_date":"1997/11/26","blood_type":"O","horoscope":"いて座","stature_cm":"164","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/sagaraiori_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/sagaraiori.php","blog_url":"http://blog.nogizaka46.com/iori.sagara/"},
+      {"full_name":"桜井 玲香","kana_name":"さくらい れいか","name_spelling":"Reika Sakurai","nick_name":"れかたん れいか キャプ キャプテン","bemars_name":"ブナン","birth_date":"1994/05/16","blood_type":"A","horoscope":"おうし座","stature_cm":"156","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/sakuraireika_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/sakuraireika.php","blog_url":"http://blog.nogizaka46.com/reika.sakurai/","nanagogo":"http://7gogo.jp/sakurai-reika"},
+      {"full_name":"佐々木 琴子","kana_name":"ささき ことこ","name_spelling":"Kotoko Sasaki","nick_name":"ことこ こったん","bemars_name":"片桐コトコ","birth_date":"1998/08/28","blood_type":"A","horoscope":"おとめ座","stature_cm":"161","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/sasakikotoko_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/sasakikotoko.php","blog_url":"http://blog.nogizaka46.com/kotoko.sasaki/"},
+      {"full_name":"白石 麻衣","kana_name":"しらいし まい","name_spelling":"Mai Shiraishi","nick_name":"まいやん","bemars_name":"キレイ","birth_date":"1992/08/20","blood_type":"A","horoscope":"しし座","stature_cm":"161","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/shiraishimai_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/shiraishimai.php","blog_url":"http://blog.nogizaka46.com/mai.shiraishi/","nanagogo":"http://7gogo.jp/shiraishi-mai"},
+      {"full_name":"新内 眞衣","kana_name":"しんうち まい","name_spelling":"Mai Shinuchi","nick_name":"まいちゅん","bemars_name":"のぞみ(県立凸Q高校)","birth_date":"1992/01/22","blood_type":"B","horoscope":"みずがめ座","stature_cm":"164","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/shinuchimai_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/shinuchimai.php","blog_url":"http://blog.nogizaka46.com/mai.shinuchi/","nanagogo":"http://7gogo.jp/shinuchi-mai"},
+      {"full_name":"鈴木 絢音","kana_name":"すずき あやね","name_spelling":"Ayane Suzuki","nick_name":"あやね あーちゃん","bemars_name":"カンヌ","birth_date":"1999/03/05","blood_type":"O","horoscope":"うお座","stature_cm":"157","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/suzukiayane_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/suzukiayane.php","blog_url":"http://blog.nogizaka46.com/ayane.suzuki/"},
+      {"full_name":"高山 一実","kana_name":"たかやま かずみ","name_spelling":"Kazumi Takayama","nick_name":"かずみん","bemars_name":"コテ","birth_date":"1994/02/08","blood_type":"A","horoscope":"みずがめ座","stature_cm":"161","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/takayamakazumi_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/takayamakazumi.php","blog_url":"http://blog.nogizaka46.com/kazumi.takayama/","nanagogo":"http://7gogo.jp/takayama-kazumi"},
+      {"full_name":"寺田 蘭世","kana_name":"てらだ らんぜ","name_spelling":"Ranze Terada","nick_name":"らんぜ らんらん","bemars_name":"ユーバリ","birth_date":"1998/09/23","blood_type":"不明","horoscope":"てんびん座","stature_cm":"155","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/teradaranze_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/teradaranze.php","blog_url":"http://blog.nogizaka46.com/ranze.terada/","nanagogo":"http://7gogo.jp/talks/lrTiWniy5wLs"},
+      {"full_name":"中田 花奈","kana_name":"なかだ かな","name_spelling":"Kana Nakada","nick_name":"かなりん","bemars_name":"翼馬カケル(ぺがさすかける)(ベルサイユ音楽学校)","birth_date":"1994/08/06","blood_type":"A","horoscope":"しし座","stature_cm":"157","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/nakadakana_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/nakadakana.php","blog_url":"http://blog.nogizaka46.com/kana.nakada/","nanagogo":"http://7gogo.jp/nakada-kana"},
+      {"full_name":"中元 日芽香","kana_name":"なかもと ひめか","name_spelling":"Himeka Nakamoto","nick_name":"ひめたん","bemars_name":"芹沢ヒメカ","birth_date":"1996/04/13","blood_type":"O","horoscope":"おひつじ座","stature_cm":"158","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/nakamotohimeka_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/nakamotohimeka.php","blog_url":"http://blog.nogizaka46.com/himeka.nakamoto/","nanagogo":"http://7gogo.jp/talks/YtykfykuJfMT"},
+      {"full_name":"永島 聖羅","kana_name":"ながしま せいら","name_spelling":"Seira Nagashima","nick_name":"らりん せいらりん","bemars_name":"トライバルのレイ(日京女子学院)","birth_date":"1994/05/19","blood_type":"O","horoscope":"おうし座","stature_cm":"158","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/nagashimaseira_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/nagashimaseira.php","blog_url":"http://blog.nogizaka46.com/seira.nagashima/"},
+      {"full_name":"西野 七瀬","kana_name":"にしの ななせ","name_spelling":"Nanase Nishino","nick_name":"ななせまる なぁちゃん なーちゃん","bemars_name":"ななまる","birth_date":"1994/05/25","blood_type":"O","horoscope":"ふたご座","stature_cm":"159","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/nishinonanase_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/nishinonanase.php","blog_url":"http://blog.nogizaka46.com/nanase.nishino/","nanagogo":"http://7gogo.jp/nishino-nanase"},
+      {"full_name":"能條 愛未","kana_name":"のうじょう あみ","name_spelling":"Ami Noujo","nick_name":"じょー じょーさん あみあみ ジョンソン","bemars_name":"メバチ(磨黒水産女子高校)","birth_date":"1994/10/18","blood_type":"A","horoscope":"てんびん座","stature_cm":"163","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/noujouami_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/noujouami.php","blog_url":"http://blog.nogizaka46.com/ami.noujo/","nanagogo":"http://7gogo.jp/nojo-ami"},
+      {"full_name":"橋本 奈々未","kana_name":"はしもと ななみ","name_spelling":"Nanami Hashimoto","nick_name":"ななみん","bemars_name":"マルキュー","birth_date":"1993/02/20","blood_type":"B","horoscope":"うお座","stature_cm":"163","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/hashimotonanami_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/hashimotonanami.php","blog_url":"http://blog.nogizaka46.com/nanami.hashimoto/","nanagogo":"http://7gogo.jp/hashimoto-nanami"},
+      {"full_name":"樋口 日奈","kana_name":"ひぐち ひな","name_spelling":"Hina Higuchi","nick_name":"ひなちま","bemars_name":"シオドキ","birth_date":"1998/01/31","blood_type":"A","horoscope":"みずがめ座","stature_cm":"157","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/higuchihina_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/higuchihina.php","blog_url":"http://blog.nogizaka46.com/hina.higuchi/"},
+      {"full_name":"深川 麻衣","kana_name":"ふかがわ まい","name_spelling":"Mai Fukagawa","nick_name":"まいまい 聖母","bemars_name":"カアチャン","birth_date":"1991/03/29","blood_type":"O","horoscope":"おひつじ座","stature_cm":"162","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/fukagawamai_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/fukagawamai.php","blog_url":"http://blog.nogizaka46.com/mai.fukagawa/"},
+      {"full_name":"星野 みなみ","kana_name":"ほしの みなみ","name_spelling":"Minami Hoshino","nick_name":"みなみ","bemars_name":"アカツカ(初森第二女子商業高等学校生徒漫画研究部)","birth_date":"1998/02/06","blood_type":"B","horoscope":"みずがめ座","stature_cm":"152","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/hoshinominami_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/hoshinominami.php","blog_url":"http://blog.nogizaka46.com/minami.hoshino/","nanagogo":"http://7gogo.jp/hoshino-minami"},
+      {"full_name":"堀 未央奈","kana_name":"ほり みおな","name_spelling":"Miona Hori","nick_name":"みおな ほりちゃん ホーリー","bemars_name":"カチドキ","birth_date":"1996/10/15","blood_type":"O","horoscope":"てんびん座","stature_cm":"160","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/horimiona_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/horimiona.php","blog_url":"http://blog.nogizaka46.com/miona.hori/","nanagogo":"http://7gogo.jp/hori-miona"},
+      {"full_name":"松村 沙友理","kana_name":"まつむら さゆり","name_spelling":"Sayuri Matsumura","nick_name":"さゆりん さゆりんご まっつん","bemars_name":"ユウウツ","birth_date":"1992/08/27","blood_type":"B","horoscope":"おとめ座","stature_cm":"162","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/matsumurasayuri_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/matsumurasayuri.php","blog_url":"http://blog.nogizaka46.com/sayuri.matsumura/","nanagogo":"http://7gogo.jp/matsumura-sayuri"},
+      {"full_name":"山崎 怜奈","kana_name":"やまざき れな","name_spelling":"Rena Yamazaki","nick_name":"れなち","bemars_name":"","birth_date":"1997/05/21","blood_type":"B","horoscope":"ふたご座","stature_cm":"164","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/yamazakirena_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/yamazakirena.php","blog_url":"http://blog.nogizaka46.com/rena.yamazaki/","nanagogo":"http://7gogo.jp/talks/35LDCm3Oeiuv"},
+      {"full_name":"若月 佑美","kana_name":"わかつき ゆみ","name_spelling":"Yumi Wakatsuki","nick_name":"みゅうみゅう 若様 わかつき","bemars_name":"イマドキ","birth_date":"1994/06/27","blood_type":"O","horoscope":"かに座","stature_cm":"157","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/wakatsukiyumi_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/wakatsukiyumi.php","blog_url":"http://blog.nogizaka46.com/yumi.wakatsuki/","nanagogo":"http://7gogo.jp/talks/kY32RBdBlqxL"},
+      {"full_name":"渡辺 みり愛","kana_name":"わたなべ みりあ","name_spelling":"Miria Watanabe","nick_name":"みりあ","bemars_name":"鎌田の教え子","birth_date":"1999/11/01","blood_type":"O","horoscope":"さそり座","stature_cm":"151","class":"2期生","image_url":"http://img.nogizaka46.com/www/member/img/watanabemiria_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/watanabemiria.php","blog_url":"http://blog.nogizaka46.com/miria.watanabe/","nanagogo":"http://7gogo.jp/watanabe-miria"},
+      {"full_name":"和田 まあや","kana_name":"わだ まあや","name_spelling":"Maaya Wada","nick_name":"まあや","bemars_name":"トキドキ","birth_date":"1998/04/23","blood_type":"O","horoscope":"おうし座","stature_cm":"157","class":"1期生","image_url":"http://img.nogizaka46.com/www/member/img/wadamaaya_prof.jpg","profile_url":"http://www.nogizaka46.com/member/detail/wadamaaya.php","blog_url":"http://blog.nogizaka46.com/maaya.wada/","nanagogo":"http://7gogo.jp/wada-maaya"}
+    ];
+
+    // 検索でヒットするようにlabelにセット.
+    $(autocompleteData).each(function (index, el) {
+      el.label = el.full_name + ' ' + el.kana_name + ' ' + el.name_spelling + ' ' + el.nick_name + ' ' + el.bemars_name + ' ' + el.birth_date + ' ' + el.blood_type + ' ' + el.horoscope + ' ' + el.stature_cm + ' ' + el.class + ' ' + el.image_url + ' ' + el.profile_url + ' ' + el.blog_url + ' ' + el.nanagogo;
+    });
+
+    // autocompleteの設定と挙動のカスタマイズ.
+    // http://stackoverflow.com/questions/13660782/jquery-autocomplete-data-from-route-and-using-custom-data-and-display
+    $(function() {
+
+      $('#query').autocomplete({
+        minlength: 2, // 候補が
+        source: autocompleteData, // 検索対象データ
+        focus: function(event, ui) { // 候補選択時の挙動
+          $('#query').val(ui.item.full_name + ' (' + ui.item.name_spelling + ')');
+          return false;
+        },
+        select: function(event, ui) { // 候補選択確定時の挙動
+          $('#query').val(ui.item.full_name);
+          return false;
+        }
+      }).autocomplete('instance')._renderItem = (function(ul, item) {
+        return $('<li>').append(item.full_name + '<br>' + item.name_spelling).appendTo(ul);
+      });
+      // _renderItem: function( ul, item ) {
+      //   return $( "<li>" ).text( item.label ).appendTo( ul );
+      // },
+    });
+
+  });
+
+// -->
+</script>
+</body>
+</html>
