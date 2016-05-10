@@ -141,7 +141,8 @@
 
     // 検索でヒットするようにlabelにセット.
     $(autocompleteData).each(function (index, el) {
-      el.label = el.full_name + ' ' + el.kana_name + ' ' + el.name_spelling + ' ' + el.nick_name + ' ' + el.bemars_name + ' ' + el.birth_date + ' ' + el.blood_type + ' ' + el.horoscope + ' ' + el.stature_cm + ' ' + el.class + ' ' + el.image_url + ' ' + el.profile_url + ' ' + el.blog_url + ' ' + el.nanagogo;
+      el.value = el.full_name;
+      el.label = el.full_name + ' ' + el.kana_name + ' ' + el.name_spelling + ' ' + el.nick_name + ' ' + el.bemars_name + ' ' + el.birth_date + ' ' + el.blood_type + ' ' + el.horoscope + ' ' + el.stature_cm + ' ' + el.class;
     });
 
     // autocompleteの設定と挙動のカスタマイズ.
@@ -149,8 +150,8 @@
     $(function() {
 
       $('#query').autocomplete({
-        minlength: 2, // 候補が
-        source: autocompleteData, // 検索対象データ
+        minLength: 2, // 検索候補を表示されるための最低入力文字数.
+        source: autocompleteData, // 検索対象データ.
         focus: function(event, ui) { // 候補選択時の挙動
           $('#query').val(ui.item.full_name + ' (' + ui.item.name_spelling + ')');
           return false;
