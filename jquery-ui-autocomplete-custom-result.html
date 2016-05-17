@@ -185,81 +185,66 @@
       el.label = el.full_name + ' ' + el.kana_name + ' ' + el.name_spelling + ' ' + el.nick_name + ' ' + el.bemars_name + ' ' + el.birth_date + ' ' + el.blood_type + ' ' + el.horoscope + ' ' + el.stature_cm + ' ' + el.class;
     });
 
-    // autocompleteの設定と挙動のカスタマイズ.
-    // http://jsfiddle.net/adamboduch/r5ZmE/
-    (function($) {
+    /**
+     * jQuery UI autocompleteの内部を拡張する.
+     * @see http://jsfiddle.net/adamboduch/r5ZmE/
+     */
+    $.widget('app.autocomplete', $.ui.autocomplete, {
 
-      /**
-       * Extend the autocomplete widget with a new "suggest" option.
-       */
-      $.widget('app.autocomplete', $.ui.autocomplete, {
-        options: {
-          // minLength: 2, // 検索候補を表示されるための最低入力文字数.
-          suggest: false
-        },
+      options: {
+        suggest: false // 拡張したかどうか判定できるようfalseをセット. (suggestは元々のui.autocompleteにはない)
+      },
 
-        // Called when the autocomplete menu is about to be displayed.
-        _suggest: function(items) {
-          // If there's a "suggest" function, use it to render the items.
-          // Otherwise, use the default _suggest() implementation.
-          if ($.isFunction(this.options.suggest)) {
-            return this.options.suggest(items);
-          }
+      // 結果候補の表示についての拡張.
+      _suggest: function(items) {
+        if ($.isFunction(this.options.suggest)) {
+          // suggestに拡張があれば、それを呼び出す.
+          this.options.suggest(items);
+        } else {
           this._super(items);
-        },
-
-        // Called when the autocomplete menu is about to be hidden.
-        _close: function(e) {
-          // If there's a "suggest" function, call it with an empty array so it can clean up.
-          // Otherwise, use the default _close() implementation.
-          if ($.isFunction(this.options.suggest)) {
-            //this.options.suggest([]); // ADD: Do not erase elements when blur.
-            return this._trigger('close', e);
-          }
-          this._super(e);
         }
-      });
+      },
 
-      $(function() {
-        // Supply a custom "suggest" function that renders each autocomplete suggestion in the results div.
-        $('#query').autocomplete({
-          // minLength: 2, // 検索候補を表示されるための最低入力文字数.
-          source: autocompleteData, // 検索対象データ.
-          response: function(event, ui) {
-            if (ui.content.length === 0) {
-              $('#list_table tbody').empty();
-            }
-          },
-          select: function(event, ui) { // 候補選択確定時の挙動
-            $('#query').val(ui.item.full_name);
-            return false;
-          },
-          suggest: function(items) {
-            $('#list_table tbody').empty();
-            $.each(items, function() {
-              $('#list_table tbody').append(
-                $('<tr>').append(
-                  $('<td>').append($('<img style="width:32px; height:auto;" src="' + this.image_url + '" />')),
-                  $('<td>').append($('<a>').attr({'target':'_blank', 'href':this.profile_url}).text(this.full_name)),
-                  $('<td>').text(this.kana_name),
-                  $('<td>').text(this.name_spelling),
-                  $('<td>').text(this.birth_date),
-                  $('<td>').text(this.blood_type),
-                  $('<td>').text(this.horoscope),
-                  $('<td>').text(this.stature_cm),
-                  $('<td>').text(this.class),
-                  $('<td>').append($('<a>').attr({'target':'_blank', 'href':this.blog_url}).text('blog')),
-                  $('<td>').append($('<a>').attr({'target':'_blank', 'href':this.nanagogo}).text('755'))
-                )
-              );
-            });
+      // _closeも拡張する.
+      // _closeは入力が空またはminLength未満、また、blur時に呼び出され、結果候補をクリアする役割を持つ.
+      _close: function(event) {
+        // suggestに拡張があれば、_closeとしての挙動は、結果候補を空にするものとする.
+        if ($.isFunction(this.options.suggest)) {
+          if (event.type !== 'blur') {
+            // ただし、blur時には結果候補を空にしない.
+            this.options.suggest([]);
           }
-        // }).autocomplete('instance')._renderItem = (function(ul, item) {
-        //   return $('<li>').append(item.full_name + '<br>' + item.name_spelling).appendTo(ul);
-        });
-      });
-    })(jQuery);
+          return this._trigger('close', event);
+        }
+        this._super(event);
+      }
+    });
 
+    // 結果候補の表示がカスタマイズされたautocomplete.
+    $('#query').autocomplete({
+      minLength: 2, // 結果候補の検索を始めるための最低入力文字数.
+      source: autocompleteData, // 検索対象データ.
+      suggest: function(items) { // 候補の表示処理を行う.
+        $('#list_table tbody').empty();
+        $.each(items, function() {
+          $('#list_table tbody').append(
+            $('<tr>').append(
+              $('<td>').append($('<img style="width:32px; height:auto;" src="' + this.image_url + '" />')),
+              $('<td>').append($('<a>').attr({'target':'_blank', 'href':this.profile_url}).text(this.full_name)),
+              $('<td>').text(this.kana_name),
+              $('<td>').text(this.name_spelling),
+              $('<td>').text(this.birth_date),
+              $('<td>').text(this.blood_type),
+              $('<td>').text(this.horoscope),
+              $('<td>').text(this.stature_cm),
+              $('<td>').text(this.class),
+              $('<td>').append($('<a>').attr({'target':'_blank', 'href':this.blog_url}).text('blog')),
+              $('<td>').append($('<a>').attr({'target':'_blank', 'href':this.nanagogo}).text('755'))
+            )
+          );
+        });
+      }
+    });
   });
 
 // -->
