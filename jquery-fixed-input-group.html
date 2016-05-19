@@ -139,7 +139,7 @@
 
     var hasFullInput = (function($target) {
       // return target.value.length = target.maxlength;
-      return $target.val().length == $target.prop('maxlength');
+      return $target.val().length == $target.attr('maxlength');
     });
     var hasAnySelection = (function(elem) {
       return (elem.selectionStart != elem.selectionEnd);
@@ -190,7 +190,7 @@
      * Behaviors of keydown.
      */
     $('.fixed-input-group').on('keydown', 'input', function(e) {
-      console.debug(new Date(), e.key);
+      console.debug(new Date(), e.which);
       var $t = $(this);
 
       // Behaviors of special key.
