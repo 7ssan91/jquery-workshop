@@ -1,205 +1,206 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="jQuery,JavaScript">
-    <meta name="description" content="jQueryの小技などのサンプルをコード例として紹介するブログです。ネイティブJavaScriptから移行したいjQuery初心者向け、jQueryの魅力を知ってもらえたら。">
-    <meta name="author" content="ryoichi-obara">
-    <title>jQuery Selectors | jQuery workshop</title>
-  </head>
-  <body>
-  <main>
-    <div id="main" class="container">
-      <form>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="jQuery,JavaScript">
+  <meta name="description" content="jQueryの小技などのサンプルをコード例として紹介するブログです。ネイティブJavaScriptから移行したいjQuery初心者向け、jQueryの魅力を知ってもらえたら。">
+  <meta name="author" content="ryoichi-obara">
+  <title>jQuery Selectors | jQuery workshop</title>
+</head>
+<body>
+<main>
+<div id="main" class="container">
+  <form>
 
-        <!-- <h1>jQueryセレクタの指定と各入力要素の値取得方法.</h1> -->
+    <!-- <h1>jQueryセレクタの指定と各入力要素の値取得方法.</h1> -->
 
-        <div>
-          <label for="textbox_a">テキストボックスA</label>
-          <input type="text" id="textbox_a" class="input-text" value="AAA">
-        </div>
-        <div>
-          <label for="textbox_b">テキストボックスB</label>
-          <input type="text" id="textbox_b" class="input-text" value="BBB">
+    <div>
+      <label for="textbox_a">テキストボックスA</label>
+      <input type="text" id="textbox_a" class="input-text" value="AAA">
+    </div>
+    <div>
+      <label for="textbox_b">テキストボックスB</label>
+      <input type="text" id="textbox_b" class="input-text" value="BBB">
 
-          <button type="button" id="btn_text_value">テキストボックスの値を取得</button>
-          <button type="button" id="btn_text_clear">テキストボックスの値をクリア</button>
-        </div>
+      <button type="button" id="btn_text_value">テキストボックスの値を取得</button>
+      <button type="button" id="btn_text_clear">テキストボックスの値をクリア</button>
+    </div>
 
-        <div>
-          <label for="text_area">テキストエリア</label>
-          <textarea id="text_area" cols="50" rows="4">
+    <div>
+      <label for="text_area">テキストエリア</label>
+      <textarea id="text_area" cols="50" rows="4">
 あいうえお
 かきくけこ</textarea>
 
-          <button type="button" id="btn_textarea_value">テキストエリアの値を取得</button>
-          <button type="button" id="btn_textarea_clear">テキストエリアの値をクリア</button>
-        </div>
-
-        <div>
-          <label for="new_password">パスワード</label>
-          <input type="password" id="new_password" value="">
-
-          <button type="button" id="btn_password_value">パスワードの値を取得</button>
-          <button type="button" id="btn_password_clear">パスワードの値をクリア</button>
-        </div>
-
-        <div>
-          <label>
-            <input type="checkbox" id="checkbox_a" name="checkbox" value="c1">
-            チェックボックス
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" id="checkbox_b" name="checkbox" value="c2">
-            チェックボックスB
-          </label>
-        </div>
-
-        <div>
-          <label><input type="radio" id="radiobutton_1_1" name="radiobutton1" value="1">選択肢1</label>
-          <label><input type="radio" id="radiobutton_1_2" name="radiobutton1" value="2">選択肢2</label>
-          <label><input type="radio" id="radiobutton_1_3" name="radiobutton1" value="3">選択肢3</label>
-        </div>
-        <div>
-          <label><input type="radio" id="radiobutton_2_a" name="radiobutton2" value="A">選択肢A</label>
-          <label><input type="radio" id="radiobutton_2_b" name="radiobutton2" value="B">選択肢B</label>
-          <label><input type="radio" id="radiobutton_2_c" name="radiobutton2" value="C">選択肢C</label>
-
-          <button type="button" id="btn_radio_value">ラジオボタンの値を取得</button>
-          <button type="button" id="btn_radio_clear">ラジオボタンの値をクリア</button>
-        </div>
-
-        <div>
-          <label for="my_blood_type">自分の血液型</label>
-          <select id="my_blood_type" name="bloodType">
-            <option value=""></option>
-            <option value="A">A型</option>
-            <option value="B">B型</option>
-            <option value="O">O型</option>
-            <option value="AB">AB型</option>
-          </select>
-
-          <label for="partner_blood_type">相手の血液型</label>
-          <select id="partner_blood_type" name="bloodType">
-            <option value=""></option>
-            <option value="A">A型</option>
-            <option value="B">B型</option>
-            <option value="O">O型</option>
-            <option value="AB">AB型</option>
-          </select>
-
-          <button type="button" id="btn_blood_diagnonosis">診断する</button>
-          <button type="button" id="btn_blood_clear">クリア</button>
-        </div>
-
-        <div>
-          <label for="file_select">ファイル選択</label>
-          <input type="file" id="file_select">
-
-          <button type="button" id="btn_file_value">ファイル選択の値を取得</button>
-          <button type="button" id="btn_file_clear">ファイル選択の値をクリア</button>
-        </div>
-
-      </form>
+      <button type="button" id="btn_textarea_value">テキストエリアの値を取得</button>
+      <button type="button" id="btn_textarea_clear">テキストエリアの値をクリア</button>
     </div>
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript">
-    <!--
 
-      $(document).ready(function($) {
+    <div>
+      <label for="new_password">パスワード</label>
+      <input type="password" id="new_password" value="">
 
-        // イベント(click,focus,blurなど)発生時の挙動はonメソッドに
-        //   第1引数 イベント名
-        //   第2引数 実行するfunction定義
-        // を指定して定義する.
+      <button type="button" id="btn_password_value">パスワードの値を取得</button>
+      <button type="button" id="btn_password_clear">パスワードの値をクリア</button>
+    </div>
 
-        // $('ここにセレクタの内容を記述する')
-        // 
-        // $('#id')
-        // $('tagName')
-        // $('.class')
-        // $('[name=""]')
+    <div>
+      <label>
+        <input type="checkbox" id="checkbox_a" name="checkbox" value="c1">
+        チェックボックス
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" id="checkbox_b" name="checkbox" value="c2">
+        チェックボックスB
+      </label>
+    </div>
 
-        // ■ テキストボックスの値を取得する例. 
-        $('#btn_text_value').on('click', function() {
-          // $('#  ') によってidを指定して要素を取得.
-          // 値の取得は.val()メソッドで実施.
-          alert($('#textbox_a').val());
-          alert($('#textbox_b').val());
-        });
-        // ■ テキストボックスへ値をセットする例. 
-        $('#btn_text_value').on('click', function() {
-          // class="input-text" のある要素を取得し、引数付きの.val('')メソッドを呼び出すことにより値のセットを行う.
-          $('.input-text').val('');
-        });
+    <div>
+      <label><input type="radio" id="radiobutton_1_1" name="radiobutton1" value="1">選択肢1</label>
+      <label><input type="radio" id="radiobutton_1_2" name="radiobutton1" value="2">選択肢2</label>
+      <label><input type="radio" id="radiobutton_1_3" name="radiobutton1" value="3">選択肢3</label>
+    </div>
+    <div>
+      <label><input type="radio" id="radiobutton_2_a" name="radiobutton2" value="A">選択肢A</label>
+      <label><input type="radio" id="radiobutton_2_b" name="radiobutton2" value="B">選択肢B</label>
+      <label><input type="radio" id="radiobutton_2_c" name="radiobutton2" value="C">選択肢C</label>
 
-        // ■ テキストエリアの値を取得する例. 
-        $('#btn_textarea_value').on('click', function() {
-          // テキストエリアの値取得も.val()でOK.
-          alert($('#text_area').val());
-        });
-        // ■ テキストエリアへ値をセットする例. 
-        $('#btn_textarea_clear').on('click', function() {
-          // テキストエリアの値セットも.val('')でOK.
-          $('#text_area').val('');
-        });
+      <button type="button" id="btn_radio_value">ラジオボタンの値を取得</button>
+      <button type="button" id="btn_radio_clear">ラジオボタンの値をクリア</button>
+    </div>
 
-        // ■ パスワードの値を取得する例. 
-        $('#btn_password_value').on('click', function() {
-          // パスワードの値取得も.val()で取得できる.
-          alert($('#new_password').val());
-        });
-        // ■ パスワードへ値をセットする例. 
-        $('#btn_password_clear').on('click', function() {
-          // パスワードへの値セットも.val('')で可能.
-          $('#new_password').val('');
-        });
+    <div>
+      <label for="my_blood_type">自分の血液型</label>
+      <select id="my_blood_type" name="bloodType">
+        <option value=""></option>
+        <option value="A">A型</option>
+        <option value="B">B型</option>
+        <option value="O">O型</option>
+        <option value="AB">AB型</option>
+      </select>
 
-        // ■ ラジオボタンの選択値を取得する例.  
-        $('#btn_radio_value').on('click', function() {
-          // ラジオボタンはname=""でグループ指定をして、その中で選択されているオブジェクトの.val()を取得する. 
-          alert($('[name="radiobutton1"]:checked').val() + 'と' + $('[name="radiobutton2"]:checked').val());
-        });
-        // ■ ラジオボタンの選択値を変更する例.
-        $('#btn_radio_clear').on('click', function() {
-          // <input type="radio">の中でチェックされているものをすべて取得し、checked属性を外す.
-          $('input[type="radio"]:checked').prop('checked', false);
-        });
+      <label for="partner_blood_type">相手の血液型</label>
+      <select id="partner_blood_type" name="bloodType">
+        <option value=""></option>
+        <option value="A">A型</option>
+        <option value="B">B型</option>
+        <option value="O">O型</option>
+        <option value="AB">AB型</option>
+      </select>
 
-        // ■ セレクトボックスから値を取得する例.
-        $('#btn_blood_diagnonosis').on('click', function(){
-          // セレクトボックスの選択値も.val()で取得できる.
-          alert($('#my_blood_type').val() + 'と' + $('#partner_blood_type').val() + 'の組み合わせ');
-        });
-        // ■ セレクトボックスへ値をセットする例.
-        $('#btn_blood_clear').on('click', function(){
-          // $('select') タグ指定でセレクトボックスをすべて取得.
-          // セレクトボックスの値セットも.val('')でできる.
-          $('select').val('');
-        });
+      <button type="button" id="btn_blood_diagnonosis">診断する</button>
+      <button type="button" id="btn_blood_clear">クリア</button>
+    </div>
 
-        // ■ ファイル選択から値を取得する例.
-        $('#btn_file_value').on('click', function() {
-          // alert($('#file_select').val());
-          if ($('#file_select').prop('files').length == 0) {
-            alert('ファイルが選択されていません.');
-          } else {
-            alert($('#file_select').prop('files')[0].name);
-          }
-        });
-        // ■ ファイル選択をクリアする例.
-        $('#btn_file_clear').on('click', function() {
-          //$('#file_select').val(''); // IEだと動かない.
-          $("#file_select").replaceWith('<input type="file" id="file_select">');
-        });
-      });
+    <div>
+      <label for="file_select">ファイル選択</label>
+      <input type="file" id="file_select">
 
-    // -->
-    </script>
-  </body>
+      <button type="button" id="btn_file_value">ファイル選択の値を取得</button>
+      <button type="button" id="btn_file_clear">ファイル選択の値をクリア</button>
+    </div>
+
+  </form>
+</div>
+</main>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+<!--
+
+  $(document).ready(function($) {
+
+    // イベント(click,focus,blurなど)発生時の挙動はonメソッドに
+    //   第1引数 イベント名
+    //   第2引数 実行するfunction定義
+    // を指定して定義する.
+
+    // $('ここにセレクタの内容を記述する')
+    // 
+    // $('#id')
+    // $('tagName')
+    // $('.class')
+    // $('[name=""]')
+
+    // ■ テキストボックスの値を取得する例.
+    $('#btn_text_value').on('click', function() {
+      // $('#  ') によってidを指定して要素を取得.
+      // 値の取得は.val()メソッドで実施.
+      alert($('#textbox_a').val());
+      alert($('#textbox_b').val());
+    });
+    // ■ テキストボックスへ値をセットする例.
+    $('#btn_text_value').on('click', function() {
+      // class="input-text" のある要素を取得し、引数付きの.val('')メソッドを呼び出すことにより値のセットを行う.
+      $('.input-text').val('');
+    });
+
+    // ■ テキストエリアの値を取得する例.
+    $('#btn_textarea_value').on('click', function() {
+      // テキストエリアの値取得も.val()でOK.
+      alert($('#text_area').val());
+    });
+    // ■ テキストエリアへ値をセットする例.
+    $('#btn_textarea_clear').on('click', function() {
+      // テキストエリアの値セットも.val('')でOK.
+      $('#text_area').val('');
+    });
+
+    // ■ パスワードの値を取得する例.
+    $('#btn_password_value').on('click', function() {
+      // パスワードの値取得も.val()で取得できる.
+      alert($('#new_password').val());
+    });
+    // ■ パスワードへ値をセットする例.
+    $('#btn_password_clear').on('click', function() {
+      // パスワードへの値セットも.val('')で可能.
+      $('#new_password').val('');
+    });
+
+    // ■ ラジオボタンの選択値を取得する例.
+    $('#btn_radio_value').on('click', function() {
+      // ラジオボタンはname=""でグループ指定をして、その中で選択されているオブジェクトの.val()を取得する.
+      alert($('[name="radiobutton1"]:checked').val() + 'と' + $('[name="radiobutton2"]:checked').val());
+    });
+    // ■ ラジオボタンの選択値を変更する例.
+    $('#btn_radio_clear').on('click', function() {
+      // <input type="radio">の中でチェックされているものをすべて取得し、checked属性を外す.
+      $('input[type="radio"]:checked').prop('checked', false);
+    });
+
+    // ■ セレクトボックスから値を取得する例.
+    $('#btn_blood_diagnonosis').on('click', function(){
+      // セレクトボックスの選択値も.val()で取得できる.
+      alert($('#my_blood_type').val() + 'と' + $('#partner_blood_type').val() + 'の組み合わせ');
+    });
+    // ■ セレクトボックスへ値をセットする例.
+    $('#btn_blood_clear').on('click', function(){
+      // $('select') タグ指定でセレクトボックスをすべて取得.
+      // セレクトボックスの値セットも.val('')でできる.
+      $('select').val('');
+    });
+
+    // ■ ファイル選択から値を取得する例.
+    $('#btn_file_value').on('click', function() {
+      // alert($('#file_select').val());
+      if ($('#file_select').prop('files').length == 0) {
+        alert('ファイルが選択されていません.');
+      } else {
+        alert($('#file_select').prop('files')[0].name);
+      }
+    });
+    // ■ ファイル選択をクリアする例.
+    $('#btn_file_clear').on('click', function() {
+      //$('#file_select').val(''); // IEだと動かない.
+      $("#file_select").replaceWith('<input type="file" id="file_select">');
+    });
+  });
+
+// -->
+</script>
+</body>
 </html>
