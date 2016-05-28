@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="jQuery,JavaScript">
+  <meta name="description" content="jQueryの小技/ちょっとした便利コードをどしどし紹介するブログです。ネイティブJavaScriptしか知らない人向けにjQueryの魅力を知ってもらえたら。">
+  <meta name="author" content="ryoichi-obara">
+  <title>Fixed input group | jQuery workshop</title>
+
+  <!-- <link rel="icon" href="./favicon.ico"> -->
+  <!-- Bootstrap core CSS -->
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap theme -->
+  <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="./css/jq-workshop.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <![endif]-->
+
+  <style type="text/css">
+
+    /** fixed-width style for form control. */
+    .fixed-input-group {
+      font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+      /*font-size: 14px;*/
+      /*line-height: 1.2;*/
+    }
+    .fixed-input-group input {
+      padding: inherit;
+    }
+
+  </style>
+</head>
+<body>
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">jQuery workshop</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">jQuery workshop</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="http://jquery-workshop.hatenablog.com/">Blog</a></li>
+          <li><a href="http://profile.hatena.ne.jp/ryoichi0102/">Profile</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acitons <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="http://profile.hatena.ne.jp/ryoichi0102/follow.add">Add favorite on hatena</a></li>
+              <li><a href="https://www.hatena.ne.jp/shop/point/sendpoint?to_hatena_id=ryoichi0102">Send hatena point</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">Check other blogs.</li>
+              <li><a href="http://ryoichi0102.hatenablog.com/">Main blog</a></li>
+              <li><a href="http://try-java.hatenablog.com/">For Java engineers</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+<div id="main" class="container">
+
+  <form class="form-horizontal">
+
+    <div class="form-group">
+      <label for="div1" class="col-xs-2 label-control">label</label>
+      <div class="col-xs-8 form-inline fixed-input-group">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default btn-clear" title="clear"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default btn-paste" title="paste"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span></button>
+          </span>
+          <input type="text" id="div1" class="form-control" maxlength="20" style="width:13em;" value="abcdefghijklmnopqrst">
+          <input type="text" id="div2" class="form-control" maxlength="4"  style="width: 3em;" value="1234">
+          <input type="text" id="div3" class="form-control" maxlength="2"  style="width: 2em;" value="12">
+          <input type="text" id="div4" class="form-control" maxlength="1"  style="width: 1em;" value="1">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default btn-copy" title="copy"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="user_id" class="col-xs-2 label-control">user_id</label>
+      <div class="col-xs-8">
+        <input type="text" id="user_id" class="form-control" value="1234567890abcdefg1234567890">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="col-xs-2 label-control">email</label>
+      <div class="col-xs-8">
+        <input type="text" id="email" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="zip_code" class="col-xs-2 label-control">zip_code</label>
+      <div class="col-xs-8 form-inline fixed-input-group">
+        <input type="text" id="zip_code1" class="form-control" maxlength="3" style="width: 5em;" value="194">
+        -
+        <input type="text" id="zip_code2" class="form-control" maxlength="4" style="width: 6em;" value="0011">
+      </div>
+    </div>
+
+  </form>
+
+
+</div>
+</main>
+<footer>
+
+</footer>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.11.3.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script> -->
+<script type="text/javascript">
+<!--
+
+  $(document).ready(function($) {
+
+    // ----- Functions for textbox.
+
+    var hasFullInput = (function($target) {
+      // return target.value.length = target.maxlength;
+      return $target.val().length == $target.attr('maxlength');
+    });
+    var hasAnySelection = (function(elem) {
+      return (elem.selectionStart != elem.selectionEnd);
+    });
+    var isCursorFirst = (function(elem) {
+      return (elem.selectionStart == 0 && elem.selectionEnd == 0);
+    });
+    var isCursorLast = (function(elem) {
+      return (elem.selectionStart == elem.value.length
+           && elem.selectionEnd   == elem.value.length);
+    });
+    var setCursorHead = (function(elem) {
+      elem.focus();
+      elem.selectionStart = elem.selectionEnd = 0;
+    });
+    /**
+     * @see comment area of http://qiita.com/mpyw/items/7d7eba54e71146cee50d
+     */
+    var setCursorLast = (function(elem) {
+      elem.focus();
+      // if (elem.selectionStart) {
+        elem.selectionStart = elem.selectionEnd = (elem.value.length + 1);
+      // } else {
+      //   elem.createTextRange().select();
+      // }
+    });
+    var selectAllText = (function(elem) {
+      elem.focus();
+      elem.selectionEnd = elem.value.length;
+      elem.selectionStart = 0;
+    });
+
+    // ----- Behaviors for fixed-input-group(s).
+
+    $('.fixed-input-group').on('click', '.btn-clear', function(e) {
+      $(this).closest('.input-group').children('input').each(function(index, el) {
+        $(el).val('');
+      });
+    });
+    $('.fixed-input-group').on('click', '.btn-paste', function(e) {
+      // TBD
+    });
+    $('.fixed-input-group').on('click', '.btn-copy', function(e) {
+      // TBD
+    });
+
+    /**
+     * Behaviors of keydown.
+     */
+    $('.fixed-input-group').on('keydown', 'input', function(e) {
+      // console.debug(new Date(), e.which);
+      var $t = $(this);
+
+      // Behaviors of special key.
+
+      if (e.which == 8) { // Backspace
+        var $this = $(this);
+        if ($this.val().length == 0) {
+          // Set cursor last on previous element.
+          var prevElem = $this.prev()[0];
+          if (prevElem != undefined && prevElem.nodeName == 'INPUT') {
+            setCursorLast(prevElem);
+            e.preventDefault(); // Cancel original behavior.
+          }
+        }
+        return;
+      } else if (e.which == 9) { // Tab
+        // console.debug( (e.shiftKey) ? 'SHIFT+TAB' : 'TAB' );
+        return;
+      } else if (e.which == 16) { // Shift
+        return;
+      } else if (e.which == 27) { // Escape
+        selectAllText(this);
+        return;
+      } else if (e.which == 37) { // Left
+        if (isCursorFirst(this)) {
+          // Set cursor last on previous element.
+          var prevElem = $(this).prev()[0];
+          if (prevElem != undefined && prevElem.nodeName == 'INPUT') {
+            setCursorLast(prevElem);
+            e.preventDefault(); // Cancel original behavior.
+            return;
+          }
+        }
+        return;
+      } else if (e.which == 38) { // Up
+        return;
+      } else if (e.which == 39) { // Right
+        if (isCursorLast(this)) {
+          // Set cursor head on next element.
+          var nextElem = $(this).next()[0];
+          if (nextElem != undefined && nextElem.nodeName == 'INPUT') {
+            setCursorHead(nextElem);
+            e.preventDefault(); // Cancel original behavior.
+          }
+        }
+        return;
+      } else if (e.which == 40) { // Down
+        return;
+      } else if (e.which == 91) { // Command (Left windows)
+        return;
+      }
+
+      // Behaviors on specific condition.
+
+      if (hasAnySelection(this)) {
+        return;
+      }
+
+      var $this = $(this);
+      // When input is full and cursor at last,
+      if (hasFullInput($this) && isCursorLast(this)) {
+
+        // Set cursor head on next element.
+        var nextElem = $this.next()[0];
+        if (nextElem != undefined && nextElem.nodeName == 'INPUT') {
+
+          if (hasFullInput($(nextElem))) {
+            selectAllText(nextElem);
+            e.preventDefault(); // Cancel original behavior.
+          } else {
+            nextElem.focus();
+            nextElem.selectionStart = nextElem.selectionEnd = 0;
+          }
+        }
+        return;
+      }
+    });
+
+    $('input').eq(0).focus();
+  });
+
+// -->
+</script>
+</body>
+</html>

@@ -7,13 +7,18 @@
   <meta name="keywords" content="jQuery,JavaScript">
   <meta name="description" content="jQueryの小技/ちょっとした便利コードをどしどし紹介するブログです。ネイティブJavaScriptしか知らない人向けにjQueryの魅力を知ってもらえたら。">
   <meta name="author" content="ryoichi-obara">
-  <title>セレクターでカンマ(,)を使う際のちょっとした注意点 | jQuery workshop</title>
+  <title>jQuery UI datepicker | jQuery workshop</title>
 
   <!-- <link rel="icon" href="./favicon.ico"> -->
   <!-- Bootstrap core CSS -->
   <link href="./css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap theme -->
   <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+  <!-- jQuery UI -->
+  <link href="./css/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet">
+  <link href="./css/jquery-ui-1.11.4/jquery-ui.structure.min.css" rel="stylesheet">
+  <link href="./css/jquery-ui-1.11.4/jquery-ui.theme.min.css" rel="stylesheet">
+
   <!-- Custom styles for this template -->
   <link href="./css/jq-workshop.css" rel="stylesheet">
 
@@ -21,7 +26,7 @@
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <![endif]-->
-
+ 
   <style type="text/css">
 
   </style>
@@ -57,30 +62,53 @@
             </ul>
           </li>
         </ul>
-      </div><!--/.nav-collapse -->
+      </div>
     </div>
   </nav>
 </header>
 <main>
 <div id="main" class="container">
 
-  <table class="table target">
-    <thead>
-      <th>head1</th><th>head2</th><th>head3</th>
-    </thead>
-    <tbody>
-      <td>body1</td><td>body2</td><td>body3</td>
-    </tbody>
-  </table>
+  <form>
 
-  <table class="table">
-    <thead>
-      <th>head1</th><th>head2</th><th>head3</th>
-    </thead>
-    <tbody>
-      <td>body1</td><td>body2</td><td>body3</td>
-    </tbody>
-  </table>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label1</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date1" name="targetDate" class="form-control this-is-datepicker" placeholder="text1" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label2</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date2" name="targetDate" class="form-control this-is-datepicker" placeholder="text2" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label3</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date3" name="targetDate" class="form-control this-is-datepicker" placeholder="text3" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label4</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date4" name="targetDate" class="form-control this-is-datepicker" placeholder="text4" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Label5</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date5" name="targetDate" class="form-control this-is-datepicker" placeholder="text5" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="target_date" class="col-xs-2">Target date</label>
+      <div class="col-xs-3">
+        <input type="text" id="target_date6" name="targetDate" class="form-control this-is-datepicker" placeholder="Target date" />
+      </div>
+    </div>
+
+  </form>
 
 </div>
 </main>
@@ -88,19 +116,18 @@
 
 </footer>
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="./js/jquery-1.12.4.min.js"></script>
+<script src="./js/jquery-1.11.3.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
+<script src="./js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="./js/jquery-ui-1.11.4/datepicker-ja.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script> -->
 <script type="text/javascript">
 <!--
 
   $(document).ready(function($) {
-
-    $('.target th, td').css('background-color', 'yellow');
-    // .target内のthとtd、ということであれば、このように書く.
-    // $('.target th, .target td').css('background-color', 'yellow');
-
+    
+    $('.this-is-datepicker').datepicker();
 
   });
 
