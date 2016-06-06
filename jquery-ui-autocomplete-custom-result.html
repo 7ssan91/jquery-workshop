@@ -206,12 +206,13 @@
       },
 
       // _closeも拡張する.
-      // _closeは入力が空またはminLength未満、また、blur時に呼び出され、結果候補をクリアする役割を持つ.
+      // _closeは"入力が空になった", "minLength未満である", "検査結果候補が見つかれない", "blur時"に呼び出され、結果候補をクリアする役割を持つ.
       _close: function(event) {
         // suggestに拡張があれば、_closeとしての挙動は、結果候補を空にするものとする.
         if ($.isFunction(this.options.suggest)) {
-          // ただし、blur時には結果候補を空にしない.
-          if (event.type !== 'blur') {
+          if (event != undefined && event.type !== 'blur') {
+            // blur時には結果候補を空にしない.
+          } else {
             this.options.suggest([]);
           }
           return this._trigger('close', event);
