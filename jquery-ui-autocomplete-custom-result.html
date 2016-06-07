@@ -210,7 +210,7 @@
       _close: function(event) {
         // suggestに拡張があれば、_closeとしての挙動は、結果候補を空にするものとする.
         if ($.isFunction(this.options.suggest)) {
-          if (event != undefined && event.type !== 'blur') {
+          if (event != undefined && event.type == 'blur') {
             // blur時には結果候補を空にしない.
           } else {
             this.options.suggest([]);
