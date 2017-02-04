@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="jQuery,JavaScript">
+  <meta name="description" content="jQueryの小技などのサンプルをコード例として紹介するブログです。ネイティブJavaScriptから移行したいjQuery初心者向け、jQueryの魅力を知ってもらえたら。">
+  <meta name="author" content="ryoichi-obara">
+  <title>jQueryでフォーカス時にテキストを全選択 | jQuery workshop</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap theme -->
+  <link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="./css/jq-workshop.css" rel="stylesheet">
+</head>
+<body>
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">jQuery workshop</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">jQuery workshop</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="http://jquery-workshop.hatenablog.com/">Blog</a></li>
+          <li><a href="http://profile.hatena.ne.jp/ryoichi0102/">Profile</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acitons <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="http://profile.hatena.ne.jp/ryoichi0102/follow.add">Add favorite on hatena</a></li>
+              <li><a href="https://www.hatena.ne.jp/shop/point/sendpoint?to_hatena_id=ryoichi0102">Send hatena point</a></li>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">Check other blogs.</li>
+              <li><a href="http://ryoichi0102.hatenablog.com/">Main blog</a></li>
+              <li><a href="http://try-java.hatenablog.com/">For Java engineers</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+<div id="main" class="container">
+  <form>
+
+    <div>
+      <label for="textbox_a">テキストボックスA</label>
+      <input type="text" id="textbox_a" class="input-text" value="AAA">
+    </div>
+    <div>
+      <label for="textbox_b">テキストボックスB</label>
+      <input type="text" id="textbox_b" class="input-text" value="BBB">
+    </div>
+
+  </form>
+</div>
+</main>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+<!--
+
+  $(document).ready(function($) {
+
+    $('textarea, input[type="text"]').on('focus', function(e) {
+      console.log('focus');
+      $(this).select();
+      e.stopImmediatePropagation();
+      console.log('b');
+    });
+    $('textarea, input[type="text"]').on('click', function(e) {
+      console.log('click');
+      return false;
+    });
+
+  });
+
+// -->
+</script>
+</body>
+</html>

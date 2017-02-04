@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="jQuery,JavaScript">
+  <meta name="description" content="jQueryの小技などのサンプルをコード例として紹介するブログです。ネイティブJavaScriptから移行したいjQuery初心者向け、jQueryの魅力を知ってもらえたら。">
+  <meta name="author" content="ryoichi-obara">
+  <title>Enterでのsubmit抑制 (Shift+Enterでsubmit)| jQuery workshop</title>
+
+  <!-- <link rel="icon" href="./favicon.ico"> -->
+  <!-- Custom styles for this template -->
+  <link href="./css/jq-workshop.css" rel="stylesheet">
+  <style type="text/css">
+
+  </style>
+</head>
+<body>
+<main>
+<div id="main" class="container">
+  <form class="form-inline">
+
+    <h3>Enterでのsubmit抑制 (Shift+Enterでsubmit)</h3>
+
+    <div>
+      <label for="textbox_a">テキストボックスA</label>
+      <input type="text" id="textbox_a" class="input-text" value="AAA">
+    </div>
+    <div>
+      <label for="text_area">テキストエリア</label>
+      <textarea id="text_area" cols="50" rows="4">
+あいうえお
+かきくけこ</textarea>
+    </div>
+
+    <button type="submit">submit</button>
+  </form>
+</div>
+</main>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+<!--
+
+  $(document).ready(function($) {
+
+    $('#form').on('submit', function(e) {
+      return false;
+    });
+    $('#form').on('keypress', 'input textarea select radio checkbox', function(e) {
+      console.debug(e);
+      console.debug(e.which);
+
+      console.debug( (e.shiftKey) ? 'SHIFT' : 'non shift' );
+
+      if (e.which == 9) {
+        //tab
+      }
+    });
+
+    $('input').eq(0).focus();
+  });
+
+// -->
+</script>
+</body>
+</html>
